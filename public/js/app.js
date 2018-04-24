@@ -29,11 +29,11 @@ todoApp.controller("todoListCtrl",["$scope", "$http", 'todoService', function($s
                 $scope.load();
             }
         });
-
         $scope.taskInputName = "";
     };
 
     $scope.update = function(task){
+
         todoService.updateTask(task, function(res){
             console.log(res);
             $scope.load();

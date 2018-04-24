@@ -24,6 +24,21 @@ app.post('/getTaskSet', function(req, res){
     });
 });
 
+app.post('/findById', function(req,res){
+    if(!req.body.id){
+        res.send(
+            {
+                success:false,
+                errorSet:['ID_IS_EMPTY']
+            }
+        );
+    }else{
+        dataTaskLayer.findTaskById(req.body.id,function(status){
+            res.send({ success:status });
+        });
+    }
+});
+
 app.post('/updateTask', function(req,res){
     if(!req.body.name && !req.body.done && !req.body.id){
         res.send(
@@ -75,9 +90,11 @@ app.post('/deleteTask', function(req,res){
             }
         );
     }else{
-        dataTaskLayer.deleteTaskById(req.body.id, function(){
-            res.send({ success:true });
-        });
+        dataTaskLayer.findTaskById(req.body.id,function(){
+            dataTaskLayer.deleteTaskById(req.body.id, function(){
+                res.send({ success:true });
+            });
+        })
     }
 });
 

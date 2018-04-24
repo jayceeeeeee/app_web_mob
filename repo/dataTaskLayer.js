@@ -27,12 +27,24 @@ var TaskModel = mongoose.model('tasks', TaskSchema);
 module.exports = {
     getTaskSet: function(cb){
         TaskModel.find(null, function (err, taskset) {
-           cb(taskset);
+            if(err){
+                throw err;
+            }else{
+                cb(taskset);
+            }
         });
     },
 
-    getTaskById: function(id, cb){
-
+    findTaskById: function(id, cb){
+        TaskModel.findById(id,function(err, task){
+            if(err){
+                throw err;
+            }else{
+                if(task!=null){
+                    cb();
+                }
+            }
+        });
     },
 
     updateTask: function(task, cb){
