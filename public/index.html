@@ -19,7 +19,7 @@
             <div>
                 <h2>Mes Todos ({{howManyDone()}} sur {{taskList.length}})</h2>
                 <div ng-repeat="task in taskList track by $index">
-                    <input type="checkbox" ng-model="task.done" ng-click="store()"/>
+                    <input type="checkbox" ng-model="task.done" ng-click="update(task)"/>
                     <span ng-class="{done:task.done}">{{ task.name }}</span>
                     <button ng-click="delete(task)">Supprimer</button>
                 </div>

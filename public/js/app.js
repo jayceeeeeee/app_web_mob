@@ -33,15 +33,21 @@ todoApp.controller("todoListCtrl",["$scope", "$http", 'todoService', function($s
         $scope.taskInputName = "";
     };
 
+    $scope.update = function(task){
+        todoService.updateTask(task, function(res){
+            console.log(res);
+            $scope.load();
+        });
+    }
+
     $scope.delete = function(task){
         var index = $scope.taskList.indexOf(task);
         $scope.taskList.splice(index,1);
 
         todoService.deleteTask(task._id, function(res){
             console.log(todo);
-
+            $scope.load();
         });
-
     };
 
     $scope.store = function(){

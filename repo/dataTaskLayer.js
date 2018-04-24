@@ -35,6 +35,16 @@ module.exports = {
 
     },
 
+    updateTask: function(task, cb){
+        TaskModel.findByIdAndUpdate(task.id, task, function(err, task){
+            if(err){
+                throw err;
+            }else{
+                cb();
+            }
+        });
+    },
+
     addTask: function(task, cb){
         var taskToSave = new TaskModel({
             _id:task.id,
@@ -55,7 +65,7 @@ module.exports = {
             if (err){
                 throw err;
             }else{
-                cb(todo);
+                cb();
             }
         });
     }

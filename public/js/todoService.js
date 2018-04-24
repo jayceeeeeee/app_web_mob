@@ -20,6 +20,18 @@ todoApp.factory('todoService',['$http',function($http){
             });
     };
 
+    server.updateTask = function(task, cb){
+        var req = {
+            id:task._id,
+            name:task.name,
+            done:task.done
+        };
+        $http.post('/updateTask', req)
+            .then(function(res){
+                cb(res);
+            });
+    };
+
     server.getTaskSet = function (cb) {
         $http.post('/getTaskSet')
             .then(function (resp) {

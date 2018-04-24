@@ -25,7 +25,23 @@ app.post('/getTaskSet', function(req, res){
 });
 
 app.post('/updateTask', function(req,res){
-
+    if(!req.body.name && !req.body.done && !req.body.id){
+        res.send(
+            {
+                success:false,
+                errorSet:['ONE_VALUE_IS_EMPTY']
+            }
+        );
+    }else{
+        var task = {
+            id:req.body.id,
+            name:req.body.name,
+            done:req.body.done
+        };
+        dataTaskLayer.updateTask(task, function(){
+            res.send({ success:true });
+        });
+    }
 });
 
 app.post('/addTask', function(req, res){
@@ -59,8 +75,8 @@ app.post('/deleteTask', function(req,res){
             }
         );
     }else{
-        dataTaskLayer.deleteTaskById(req.body.id, function(todo){
-            res.send({ success:true, todo:todo });
+        dataTaskLayer.deleteTaskById(req.body.id, function(){
+            res.send({ success:true });
         });
     }
 });
